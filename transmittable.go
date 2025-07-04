@@ -35,7 +35,7 @@ func newTransmittable(conn *Connection, settings Settings, requestStore RequestS
 	t := &transmittable{
 		settings:     settings,
 		conn:         conn,
-		input:        make(chan pdu.PDU, 1),
+		input:        make(chan pdu.PDU, 1000),
 		aliveState:   Alive,
 		pendingWrite: 0,
 		requestStore: requestStore,
