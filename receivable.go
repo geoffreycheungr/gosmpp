@@ -174,15 +174,18 @@ func (t *receivable) handleWindowPdu(p pdu.PDU) (closing bool) {
 }
 
 func (t *receivable) handleAllPdu(p pdu.PDU) (closing bool) {
-	if t.settings.OnAllPDU != nil && p != nil {
-		r, closeBind := t.settings.OnAllPDU(p)
-		t.settings.response(r)
-		if closeBind {
-			time.Sleep(50 * time.Millisecond)
-			closing = true
-		}
-	}
-	return
+    if t.settings.OnAllPDU != nil && p != nil {
+        t.wg.Add(1)
+        go func() {
+            defer t.wg.Done()
+            r, closeBind := t.settings.OnAllPDU(p)
+            t.settings.response(r)
+            if closeBind {
+                t.closing(UnbindClosing)
+            }
+        }()
+    }
+    return false
 }
 
 func (t *receivable) handleOrClose(p pdu.PDU) (closing bool) {
