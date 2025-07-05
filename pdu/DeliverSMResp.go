@@ -1,7 +1,7 @@
 package pdu
 
 import (
-	"github.com/linxGnu/gosmpp/data"
+	"github.com/geoffreycheungr/gosmpp/data"
 )
 
 // DeliverSMResp PDU.

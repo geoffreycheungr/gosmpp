@@ -3,7 +3,7 @@ package pdu
 import (
 	"fmt"
 
-	"github.com/linxGnu/gosmpp/data"
+	"github.com/geoffreycheungr/gosmpp/data"
 )
 
 // DistributionList represents group of contacts.
